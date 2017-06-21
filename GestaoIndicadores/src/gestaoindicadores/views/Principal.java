@@ -9,6 +9,7 @@ import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.Config;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +24,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setBackground(Color.white);
+        this.setExtendedState(MAXIMIZED_BOTH);;
      
 
     }
@@ -43,7 +45,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -69,6 +71,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu3.setText("Cadastros");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
         jMenuItem1.setText("Stakeholders");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,10 +80,11 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
-        jMenuBar2.add(jMenu3);
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/categorias_48X48.png"))); // NOI18N
+        jMenuItem2.setText("Categorias");
+        jMenu3.add(jMenuItem2);
 
-        jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
+        jMenuBar2.add(jMenu3);
 
         setJMenuBar(jMenuBar2);
 
@@ -104,8 +108,10 @@ public class Principal extends javax.swing.JFrame {
     private void alteraDesktop(Component x){
         this.jDesktopPane.removeAll();
         this.jDesktopPane.add(x);
+        x.setSize(this.jDesktopPane.getWidth(), this.jDesktopPane.getHeight());
         x.setVisible(true);
         this.jDesktopPane.repaint();
+        
         this.jDesktopPane.updateUI();
     }
     
@@ -155,9 +161,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
