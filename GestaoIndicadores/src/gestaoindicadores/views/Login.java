@@ -179,6 +179,7 @@ public class Login extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Você não esta conectado a nenhuma base de dados");
         }
+        new Principal().setVisible(true);
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
