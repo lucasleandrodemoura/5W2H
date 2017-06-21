@@ -10,6 +10,7 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Stakeholders extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -51,7 +52,7 @@ public class Stakeholders extends javax.swing.JInternalFrame {
         setForeground(java.awt.Color.white);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -62,7 +63,7 @@ public class Stakeholders extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -79,6 +80,11 @@ public class Stakeholders extends javax.swing.JInternalFrame {
         btnEditar.setFocusable(false);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnEditar);
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/del_16X16.png"))); // NOI18N
@@ -86,6 +92,11 @@ public class Stakeholders extends javax.swing.JInternalFrame {
         btnDel.setFocusable(false);
         btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnDel);
 
         jLabel1.setText("Procurar");
@@ -117,6 +128,24 @@ public class Stakeholders extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        if(this.jTable.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        if(this.jTable.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDel;
@@ -124,7 +153,7 @@ public class Stakeholders extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField sProcura;
     // End of variables declaration//GEN-END:variables

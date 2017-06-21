@@ -23,7 +23,8 @@ public class GestaoIndicadores {
         Config.porta = "5432";
         Config.usuario = "postgres";
         Config.senha = "1234";
-        Config.base = "indicadores";
+        Config.base = "sisacoes";
+        new CRUD().createTable();
         new Login().setVisible(true);
     }
     
