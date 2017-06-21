@@ -16,7 +16,7 @@ public class Config {
     public static String base;
     public static String usuario;
     public static int usuario_logado;
-    public static boolean privilegio;
+    public static int privilegio;
     public static String usuario_nome;
     
 }

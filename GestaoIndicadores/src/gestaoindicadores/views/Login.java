@@ -5,9 +5,13 @@
  */
 package gestaoindicadores.views;
 
+import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.Config;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -54,7 +58,7 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel2.setText("Login");
+        jLabel2.setText("E-mail");
 
         jLabel3.setText("Senha");
 
@@ -175,11 +179,21 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         CRUD crud = new CRUD();
         if(crud.isConectado()){
-            crud.select("SELECT * FROM usuarios WHERE login = '"+this.jLogin.getText()+"' AND senha = '"+this.jSenha.getPassword().toString());
+            Usuarios login = new Usuarios();
+            try {
+                if(login.Logar(this.jLogin.getText(), this.jSenha.getText())){
+                    new Principal().setVisible(true);
+                    this.dispose();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha não encontrado");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Problemas na autenticação: "+ex.getMessage());
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Você não esta conectado a nenhuma base de dados");
         }
-        new Principal().setVisible(true);
+        
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
