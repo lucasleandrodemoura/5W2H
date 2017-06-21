@@ -5,6 +5,8 @@
  */
 package gestaoindicadores.views;
 
+import java.awt.Color;
+
 /**
  *
  * @author lucas
@@ -16,6 +18,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        getContentPane().setBackground(Color.white);
+
     }
 
     /**
