@@ -5,6 +5,9 @@
  */
 package gestaoindicadores;
 
+import gestaoindicadores.views.Login;
+import gestaoindicadores.models.*;
+
 /**
  *
  * @author lucas
@@ -16,6 +19,12 @@ public class GestaoIndicadores {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Config.host = "localhost";
+        Config.porta = "5432";
+        Config.usuario = "postgres";
+        Config.senha = "1234";
+        Config.base = "indicadores";
+        new Login().setVisible(true);
     }
     
 }

@@ -5,7 +5,10 @@
  */
 package gestaoindicadores.views;
 
+import gestaoindicadores.models.CRUD;
+import gestaoindicadores.models.Config;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +21,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+        this.setBackground(Color.white);
+        this.txtBase.setText(Config.base);
+        this.txtHost.setText(Config.host);
 
     }
 
@@ -39,6 +44,10 @@ public class Login extends javax.swing.JFrame {
         jSenha = new javax.swing.JPasswordField();
         btnCancelar = new javax.swing.JButton();
         btnLogar = new javax.swing.JButton();
+        txtHost = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtBase = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestão de Indicadores");
@@ -59,6 +68,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnLogar.setText("Logar");
+        btnLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,12 +109,34 @@ public class Login extends javax.swing.JFrame {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
+        txtHost.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        txtHost.setText("txtHost");
+
+        jLabel5.setText("Host:");
+
+        jLabel6.setText("Base:");
+
+        txtBase.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        txtBase.setText("txtHost");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtHost))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtBase)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -113,7 +149,15 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 113, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHost)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtBase))
+                .addGap(20, 20, 20))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -126,6 +170,16 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
+        // TODO add your handling code here:
+        CRUD crud = new CRUD();
+        if(crud.isConectado()){
+            crud.select("SELECT * FROM usuarios WHERE login = '"+this.jLogin.getText()+"' AND senha = '"+this.jSenha.getPassword().toString());
+        }else {
+            JOptionPane.showMessageDialog(null, "Você não esta conectado a nenhuma base de dados");
+        }
+    }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,8 +222,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jSenha;
+    private javax.swing.JLabel txtBase;
+    private javax.swing.JLabel txtHost;
     // End of variables declaration//GEN-END:variables
 }
