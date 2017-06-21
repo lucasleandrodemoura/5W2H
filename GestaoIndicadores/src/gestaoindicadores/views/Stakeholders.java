@@ -5,29 +5,70 @@
  */
 package gestaoindicadores.views;
 
+import gestaoindicadores.controlers.Usuarios;
+import gestaoindicadores.models.CRUD;
+import gestaoindicadores.models.TelaVIEW;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.beans.PropertyVetoException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author lucas
  */
-public class Stakeholders extends javax.swing.JInternalFrame {
+public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW{
 
     /**
      * Creates new form Stakeholders
      */
     public Stakeholders() {
         initComponents();
+        this.AlimentaTabela();
         this.setBackground(Color.white);
         this.setMaximizable(true);
         this.setTitle("StakeHolders");
         
     }
+    
+    
+    public void AlimentaTabela(){
+        
+        int contador = 0;
+        
+        DefaultTableModel model = new DefaultTableModel(); 
+        jTable.setModel(model);
+        
+        model.addColumn("Código");
+        model.addColumn("Nome");
+        model.addColumn("E-mail");
+        model.addColumn("Ativo");
+        
+        ResultSet x = new CRUD().select("SELECT * FROM usuarios");
+        Usuarios user;
+        try {
+            while(x.next()){
+                user = new Usuarios(x.getInt("idusuarios"), x.getString("nome"), x.getString("email"), x.getString("senha"), x.getInt("privilegio"),x.getBoolean("ativo"));
+                model.addRow(new Object[]{"", "","","",""});
+                this.jTable.setValueAt(user.getIdusuarios(), contador, 0);
+                this.jTable.setValueAt(user.getNome(), contador, 1);
+                this.jTable.setValueAt(user.getEmail(), contador, 2);
+                this.jTable.setValueAt(user.getAtivoDescricao(), contador, 3);
+                contador++;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas"+ex.getMessage());
+        }
+
+        
+    }
+   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +90,7 @@ public class Stakeholders extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
+        setClosable(true);
         setForeground(java.awt.Color.white);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
 

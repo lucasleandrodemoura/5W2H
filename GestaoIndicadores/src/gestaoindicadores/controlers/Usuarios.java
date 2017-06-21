@@ -71,6 +71,16 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
         this.privilegio = privilegio;
     }
     
+    public Usuarios(int idusuarios, String nome, String email, String senha, int privilegio, Boolean ativo) {
+       this.idusuarios = idusuarios;
+       this.nome = nome;
+       this.email = email;
+       this.senha = senha;
+       this.privilegio = privilegio;
+       this.ativo = ativo;
+       
+    }
+    
     public Usuarios(int idusuarios, String nome, String email, String senha, int privilegio, Boolean ativo, Set acoeses) {
        this.idusuarios = idusuarios;
        this.nome = nome;
@@ -129,6 +139,14 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
     
     public void setAcoeses(Set acoeses) {
         this.acoeses = acoeses;
+    }
+
+    public String getAtivoDescricao() {
+        if(this.getAtivo()){
+            return "Sim";
+        }else{
+            return "Não";
+        }
     }
 
 
