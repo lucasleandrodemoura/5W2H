@@ -48,8 +48,15 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         model.addColumn("Nome");
         model.addColumn("E-mail");
         model.addColumn("Ativo");
+        String sql = "SELECT * FROM usuarios";
         
-        ResultSet x = new CRUD().select("SELECT * FROM usuarios");
+        String filtro = this.sProcura.getText();
+        if(!filtro.equals("")){
+           sql += " WHERE nome LIKE '%"+filtro+"%' ";
+           sql += " OR email LIKE '%"+filtro+"%' ";
+        }
+        
+        ResultSet x = new CRUD().select(sql);
         Usuarios user;
         try {
             while(x.next()){
@@ -143,6 +150,12 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
 
         jLabel1.setText("Procurar");
 
+        sProcura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sProcuraKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,6 +200,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
             
         }
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void sProcuraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sProcuraKeyPressed
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_sProcuraKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
