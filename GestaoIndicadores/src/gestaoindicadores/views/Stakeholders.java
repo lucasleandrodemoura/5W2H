@@ -122,6 +122,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         btnNovo.setFocusable(false);
         btnNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnNovo);
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/edit_16X16.png"))); // NOI18N
@@ -205,6 +210,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         // TODO add your handling code here:
         this.AlimentaTabela();
     }//GEN-LAST:event_sProcuraKeyPressed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        new StakeholdersRecords().setVisible(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
