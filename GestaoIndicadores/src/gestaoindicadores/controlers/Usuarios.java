@@ -157,6 +157,15 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
         return this.privilegio;
     }
     
+    
+     public boolean getPrivilegioBoolean() {
+        if(this.getPrivilegio()==0)
+         return false;
+        else
+            return true;
+         
+    }
+    
     public void setPrivilegio(int privilegio) {
         this.privilegio = privilegio;
     }

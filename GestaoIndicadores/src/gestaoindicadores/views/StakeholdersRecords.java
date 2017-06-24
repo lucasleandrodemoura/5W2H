@@ -9,6 +9,7 @@ import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.HibernateUtil;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import org.hibernate.HibernateException;
@@ -38,6 +39,33 @@ public class StakeholdersRecords extends javax.swing.JFrame {
         initComponents();
                this.setBackground(Color.white);
         this.codigo_usuario = codigo_usuario;
+        
+        List resultado = null;
+
+        try {
+            Session sessao = HibernateUtil.getSessionFactory().openSession();
+
+            
+            org.hibernate.Query q = sessao.createQuery("FROM Usuarios WHERE idusuarios = "+codigo_usuario);
+            
+            resultado = q.list();
+
+            for (Object o : resultado) {
+                Usuarios p = (Usuarios) o;
+                this.email.setText(p.getEmail());
+                this.nome.setText(p.getNome());
+                this.ativo.setSelected(p.getAtivo());
+                this.senha.setText(p.getSenha());
+                this.adminitrador.setSelected(p.getPrivilegioBoolean());
+                
+            }
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        
+        
+        
         this.setTitle("StakeHolders | Editar");
     }
 
