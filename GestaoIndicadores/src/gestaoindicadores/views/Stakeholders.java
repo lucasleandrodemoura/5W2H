@@ -60,7 +60,7 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         Usuarios user;
         try {
             while(x.next()){
-                user = new Usuarios(x.getInt("idusuarios"), x.getString("nome"), x.getString("email"), x.getString("senha"), x.getInt("privilegio"),x.getBoolean("ativo"));
+                user = new Usuarios(x.getInt("idusuarios"), x.getString("nome"), x.getString("email"), x.getString("senha"), x.getBoolean("privilegio"),x.getBoolean("ativo"));
                 model.addRow(new Object[]{"", "","","",""});
                 this.jTable.setValueAt(user.getIdusuarios(), contador, 0);
                 this.jTable.setValueAt(user.getNome(), contador, 1);
@@ -100,6 +100,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         setClosable(true);
         setForeground(java.awt.Color.white);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,7 +198,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         if(this.jTable.getSelectedRow()==-1){
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         }else{
+            int selectedRow = this.jTable.getSelectedRow();
+            int id = (int) this.jTable.getValueAt(selectedRow, 0);
             
+            
+            new StakeholdersRecords(id).setVisible(true);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -202,7 +211,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         if(this.jTable.getSelectedRow()==-1){
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
         }else{
-            
+            int selectedRow = this.jTable.getSelectedRow();
+            Object id = this.jTable.getValueAt(selectedRow, 0);
+            int idUsuario = Integer.getInteger((String) id);
+            System.out.print(idUsuario);
+            new StakeholdersRecords(idUsuario).setVisible(true);
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
@@ -215,6 +228,11 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         // TODO add your handling code here:
         new StakeholdersRecords().setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

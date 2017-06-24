@@ -7,15 +7,20 @@ package gestaoindicadores.views;
 
 import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
+import gestaoindicadores.models.HibernateUtil;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author lucas
  */
 public class StakeholdersRecords extends javax.swing.JFrame {
-    private int codigo_aluno = 0;
+    private int codigo_usuario;
     
     
     /**
@@ -29,10 +34,10 @@ public class StakeholdersRecords extends javax.swing.JFrame {
     }
     
     
-    public StakeholdersRecords(int codigo_aluno) {
+    public StakeholdersRecords(int codigo_usuario) {
         initComponents();
                this.setBackground(Color.white);
-        this.codigo_aluno = codigo_aluno;
+        this.codigo_usuario = codigo_usuario;
         this.setTitle("StakeHolders | Editar");
     }
 
@@ -132,10 +137,30 @@ public class StakeholdersRecords extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Usuarios usuarios = 
-                new Usuarios(this.codigo_aluno, this.nome.getText(), this.email.getText(), this.senha.getText(), Integer.parseInt(String.valueOf(this.adminitrador.isSelected())),this.ativo.isSelected());
         
-        new CRUD().update();
+         Session sessao = null;
+
+        try {
+            sessao = HibernateUtil.getSessionFactory().openSession();
+            Transaction t = sessao.beginTransaction();
+            
+            if(this.codigo_usuario == 0){
+                Usuarios usuario = new Usuarios(this.nome.getText(), this.email.getText(), this.senha.getText(), this.adminitrador.isSelected(), this.ativo.isSelected());
+                sessao.save(usuario);
+            }else{
+                Usuarios usuario = new Usuarios(this.codigo_usuario,this.nome.getText(), this.email.getText(), this.senha.getText(), this.adminitrador.isSelected(), this.ativo.isSelected());
+                sessao.update(usuario);
+            }
+            t.commit();
+            JOptionPane.showMessageDialog(null, "Operação realizada com sucesso");
+            this.dispose();
+        } catch (HibernateException he) {
+            JOptionPane.showMessageDialog(null, "ERRO: "+he.getMessage());
+            he.printStackTrace();
+        } finally {
+            sessao.close();
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
