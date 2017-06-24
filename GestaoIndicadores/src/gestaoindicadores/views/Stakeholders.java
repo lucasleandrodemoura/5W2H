@@ -7,6 +7,7 @@ package gestaoindicadores.views;
 
 import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
+import gestaoindicadores.models.HibernateUtil;
 import gestaoindicadores.models.TelaVIEW;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -17,12 +18,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author lucas
  */
-public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW{
+public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW {
 
     /**
      * Creates new form Stakeholders
@@ -33,35 +37,34 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
         this.setBackground(Color.white);
         this.setMaximizable(true);
         this.setTitle("StakeHolders");
-        
+
     }
-    
-    
-    public void AlimentaTabela(){
-        
+
+    public void AlimentaTabela() {
+
         int contador = 0;
-        
-        DefaultTableModel model = new DefaultTableModel(); 
+
+        DefaultTableModel model = new DefaultTableModel();
         jTable.setModel(model);
-        
+
         model.addColumn("Código");
         model.addColumn("Nome");
         model.addColumn("E-mail");
         model.addColumn("Ativo");
         String sql = "SELECT * FROM usuarios";
-        
+
         String filtro = this.sProcura.getText();
-        if(!filtro.equals("")){
-           sql += " WHERE nome LIKE '%"+filtro+"%' ";
-           sql += " OR email LIKE '%"+filtro+"%' ";
+        if (!filtro.equals("")) {
+            sql += " WHERE nome LIKE '%" + filtro + "%' ";
+            sql += " OR email LIKE '%" + filtro + "%' ";
         }
-        
+
         ResultSet x = new CRUD().select(sql);
         Usuarios user;
         try {
-            while(x.next()){
-                user = new Usuarios(x.getInt("idusuarios"), x.getString("nome"), x.getString("email"), x.getString("senha"), x.getBoolean("privilegio"),x.getBoolean("ativo"));
-                model.addRow(new Object[]{"", "","","",""});
+            while (x.next()) {
+                user = new Usuarios(x.getInt("idusuarios"), x.getString("nome"), x.getString("email"), x.getString("senha"), x.getBoolean("privilegio"), x.getBoolean("ativo"));
+                model.addRow(new Object[]{"", "", "", "", ""});
                 this.jTable.setValueAt(user.getIdusuarios(), contador, 0);
                 this.jTable.setValueAt(user.getNome(), contador, 1);
                 this.jTable.setValueAt(user.getEmail(), contador, 2);
@@ -69,13 +72,10 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
                 contador++;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas" + ex.getMessage());
         }
 
-        
     }
-   
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -195,27 +195,43 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        if(this.jTable.getSelectedRow()==-1){
+        if (this.jTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
-        }else{
+        } else {
             int selectedRow = this.jTable.getSelectedRow();
             int id = (int) this.jTable.getValueAt(selectedRow, 0);
-            
-            
+
             new StakeholdersRecords(id).setVisible(true);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
-        if(this.jTable.getSelectedRow()==-1){
+        if (this.jTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
-        }else{
+        } else {
             int selectedRow = this.jTable.getSelectedRow();
-            Object id = this.jTable.getValueAt(selectedRow, 0);
-            int idUsuario = Integer.getInteger((String) id);
-            System.out.print(idUsuario);
-            new StakeholdersRecords(idUsuario).setVisible(true);
+            int id = (int) this.jTable.getValueAt(selectedRow, 0);
+
+            if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este registro?") == 0) {
+                Session sessao = null;
+
+                try {
+                    sessao = HibernateUtil.getSessionFactory().openSession();
+                    Transaction t = sessao.beginTransaction();
+                    Usuarios del = new Usuarios(id);
+                    sessao.delete(del);
+                    t.commit();
+                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso");
+                    
+                } catch (HibernateException he) {
+                    JOptionPane.showMessageDialog(null, "ERRO: " + he.getMessage());
+                    he.printStackTrace();
+                } finally {
+                    sessao.close();
+                }
+            }
+
         }
     }//GEN-LAST:event_btnDelActionPerformed
 

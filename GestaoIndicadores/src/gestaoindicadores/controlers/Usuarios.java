@@ -78,6 +78,12 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
         
         return status;
     }
+
+    public Usuarios(int idusuarios) {
+        this.idusuarios = idusuarios;
+    }
+    
+    
             
 
 	
