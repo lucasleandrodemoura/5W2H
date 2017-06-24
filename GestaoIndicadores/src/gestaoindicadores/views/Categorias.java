@@ -5,27 +5,73 @@
  */
 package gestaoindicadores.views;
 
+import gestaoindicadores.controlers.Usuarios;
+import gestaoindicadores.models.CRUD;
+import gestaoindicadores.models.HibernateUtil;
+import gestaoindicadores.models.TelaVIEW;
 import java.awt.Color;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.beans.PropertyVetoException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author lucas
  */
-public class Categorias extends javax.swing.JInternalFrame {
-
+public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
+    gestaoindicadores.controlers.Categorias obj;
     /**
      * Creates new form Stakeholders
      */
     public Categorias() {
         initComponents();
+        this.AlimentaTabela();
         this.setBackground(Color.white);
         this.setMaximizable(true);
         this.setTitle("Categorias");
+
+    }
+
+    public void AlimentaTabela() {
+
+        int contador = 0;
+
+        DefaultTableModel model = new DefaultTableModel();
+        jTable.setModel(model);
+
+        model.addColumn("Código");
+        model.addColumn("Descrição");
+        model.addColumn("Ativo");
+        String sql = "SELECT * FROM categorias";
+
+        String filtro = this.sProcura.getText();
+        if (!filtro.equals("")) {
+            sql += " WHERE descricao LIKE '%" + filtro + "%' ";
+        }
+
+        ResultSet x = new CRUD().select(sql);
         
+        try {
+            while (x.next()) {
+                obj = new gestaoindicadores.controlers.Categorias(x.getInt("idcategorias"), x.getString("descricao"), x.getBoolean("ativo"));
+                model.addRow(new Object[]{"", "", "", "", ""});
+                this.jTable.setValueAt(obj.getIdcategorias(), contador, 0);
+                this.jTable.setValueAt(obj.getDescricao(), contador, 1);
+                this.jTable.setValueAt(obj.getAtivoDescricao(), contador, 3);
+                contador++;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas" + ex.getMessage());
+        }
+
     }
 
     /**
@@ -38,16 +84,26 @@ public class Categorias extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton2 = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        sProcura = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
+        setClosable(true);
         setForeground(java.awt.Color.white);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/categorias_48X48.png"))); // NOI18N
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,16 +114,54 @@ public class Categorias extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton2.setText("Novo");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/new_16X16.png"))); // NOI18N
+        btnNovo.setToolTipText("Novo");
+        btnNovo.setFocusable(false);
+        btnNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnNovo);
+
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/edit_16X16.png"))); // NOI18N
+        btnEditar.setToolTipText("Editar");
+        btnEditar.setFocusable(false);
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnEditar);
+
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/del_16X16.png"))); // NOI18N
+        btnDel.setToolTipText("Excluir");
+        btnDel.setFocusable(false);
+        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnDel);
+
+        jLabel1.setText("Procurar");
+
+        sProcura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sProcuraKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,23 +169,93 @@ public class Categorias extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sProcura)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(sProcura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        if (this.jTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            int selectedRow = this.jTable.getSelectedRow();
+            int id = (int) this.jTable.getValueAt(selectedRow, 0);
+
+            new CategoriasRecords(id).setVisible(true);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        if (this.jTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
+        } else {
+            int selectedRow = this.jTable.getSelectedRow();
+            int id = (int) this.jTable.getValueAt(selectedRow, 0);
+
+            if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este registro?") == 0) {
+                Session sessao = null;
+
+                try {
+                    sessao = HibernateUtil.getSessionFactory().openSession();
+                    Transaction t = sessao.beginTransaction();
+                    obj = new gestaoindicadores.controlers.Categorias(id);
+                    sessao.delete(obj);
+                    t.commit();
+                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso");
+                    
+                } catch (HibernateException he) {
+                    JOptionPane.showMessageDialog(null, "ERRO: " + he.getMessage());
+                    he.printStackTrace();
+                } finally {
+                    sessao.close();
+                }
+            }
+
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void sProcuraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sProcuraKeyPressed
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_sProcuraKeyPressed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        new CategoriasRecords().setVisible(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_formFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextField sProcura;
     // End of variables declaration//GEN-END:variables
 }

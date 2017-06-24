@@ -48,5 +48,6 @@ Contributor(s):
         <property name="hibernate.connection.password">1234</property>
         
         <mapping class="gestaoindicadores.controlers.Usuarios"/>
+        <mapping class="gestaoindicadores.controlers.Categorias"/>
     </session-factory>
 </hibernate-configuration>
