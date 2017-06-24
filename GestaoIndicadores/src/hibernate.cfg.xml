@@ -47,7 +47,9 @@ Contributor(s):
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">1234</property>
         
-        <mapping class="gestaoindicadores.controlers.Usuarios"/>
+        <mapping class="gestaoindicadores.controlers.Funcoes"/>
         <mapping class="gestaoindicadores.controlers.Categorias"/>
+        <mapping class="gestaoindicadores.controlers.Usuarios"/>
+        
     </session-factory>
 </hibernate-configuration>

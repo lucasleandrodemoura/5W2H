@@ -5,7 +5,7 @@
  */
 package gestaoindicadores.views;
 
-import gestaoindicadores.controlers.Usuarios;
+
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.HibernateUtil;
 import gestaoindicadores.models.TelaVIEW;
@@ -26,17 +26,17 @@ import org.hibernate.Transaction;
  *
  * @author lucas
  */
-public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
-    gestaoindicadores.controlers.Categorias obj;
+public class Funcoes extends javax.swing.JInternalFrame implements TelaVIEW {
+    gestaoindicadores.controlers.Funcoes obj;
     /**
      * Creates new form Stakeholders
      */
-    public Categorias() {
+    public Funcoes() {
         initComponents();
         this.AlimentaTabela();
         this.setBackground(Color.white);
         this.setMaximizable(true);
-        this.setTitle("Categorias");
+        this.setTitle("Funções");
 
     }
 
@@ -50,7 +50,7 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
         model.addColumn("Código");
         model.addColumn("Descrição");
         model.addColumn("Ativo");
-        String sql = "SELECT * FROM categorias";
+        String sql = "SELECT * FROM funcoes";
 
         String filtro = this.sProcura.getText();
         if (!filtro.equals("")) {
@@ -61,9 +61,9 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
         
         try {
             while (x.next()) {
-                obj = new gestaoindicadores.controlers.Categorias(x.getInt("idcategorias"), x.getString("descricao"), x.getBoolean("ativo"));
+                obj = new gestaoindicadores.controlers.Funcoes(x.getInt("idfuncoes"), x.getString("descricao"), x.getBoolean("ativo"));
                 model.addRow(new Object[]{"", "", "", ""});
-                this.jTable.setValueAt(obj.getIdcategorias(), contador, 0);
+                this.jTable.setValueAt(obj.getIdfuncoes(), contador, 0);
                 this.jTable.setValueAt(obj.getDescricao(), contador, 1);
                 this.jTable.setValueAt(obj.getAtivoDescricao(), contador, 2);
                 contador++;
@@ -96,7 +96,7 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
         setBorder(null);
         setClosable(true);
         setForeground(java.awt.Color.white);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/categorias_48X48.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/funcoes_48X48.png"))); // NOI18N
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
@@ -114,6 +114,11 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable);
 
         jToolBar1.setFloatable(false);
@@ -198,7 +203,7 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
             int selectedRow = this.jTable.getSelectedRow();
             int id = (int) this.jTable.getValueAt(selectedRow, 0);
 
-            new CategoriasRecords(id).setVisible(true);
+            new FuncoesRecords(id).setVisible(true);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -216,10 +221,11 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
                 try {
                     sessao = HibernateUtil.getSessionFactory().openSession();
                     Transaction t = sessao.beginTransaction();
-                    obj = new gestaoindicadores.controlers.Categorias(id);
+                    obj = new gestaoindicadores.controlers.Funcoes(id);
                     sessao.delete(obj);
                     t.commit();
                     JOptionPane.showMessageDialog(null, "Registro excluído com sucesso");
+                    this.AlimentaTabela();
                     
                 } catch (HibernateException he) {
                     JOptionPane.showMessageDialog(null, "ERRO: " + he.getMessage());
@@ -239,13 +245,18 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        new CategoriasRecords().setVisible(true);
+        new FuncoesRecords().setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
         this.AlimentaTabela();
     }//GEN-LAST:event_formFocusGained
+
+    private void jTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableFocusGained
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_jTableFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
