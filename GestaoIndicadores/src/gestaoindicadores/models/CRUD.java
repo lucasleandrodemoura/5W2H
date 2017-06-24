@@ -71,6 +71,7 @@ public class CRUD {
 "CREATE TABLE IF NOT EXISTS status (\n" +
 "  idstatus SERIAL NOT NULL,\n" +
 "  descricao VARCHAR(45) NOT NULL,\n" +
+"  ativo BOOLEAN NULL DEFAULT true,\n" +
 "  PRIMARY KEY (idstatus))\n" +
 ";\n" +
 "CREATE TABLE IF NOT EXISTS acoes (\n" +
