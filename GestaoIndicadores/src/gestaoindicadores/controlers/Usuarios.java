@@ -12,11 +12,14 @@ import java.sql.SQLException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import gestaoindicadores.models.HibernateUtil;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +29,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 public class Usuarios extends Validacoes implements java.io.Serializable{
+
+    @Column(name = "privilegio")
+    private Integer privilegio;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quem")
+    private Collection<Acoes> acoesCollection;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +45,6 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
      private String email;
     @Column(name = "senha")
      private String senha;
-    @Column(name = "privilegio")
-     private int privilegio;
     @Column(name = "ativo")
      private Boolean ativo;
 
@@ -159,9 +165,6 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public int getPrivilegio() {
-        return this.privilegio;
-    }
     
     
      public boolean getPrivilegioBoolean() {
@@ -172,9 +175,6 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
          
     }
     
-    public void setPrivilegio(int privilegio) {
-        this.privilegio = privilegio;
-    }
     public Boolean getAtivo() {
         return this.ativo;
     }
@@ -189,6 +189,22 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
         }else{
             return "Não";
         }
+    }
+
+    public Integer getPrivilegio() {
+        return privilegio;
+    }
+
+    public void setPrivilegio(Integer privilegio) {
+        this.privilegio = privilegio;
+    }
+
+    public Collection<Acoes> getAcoesCollection() {
+        return acoesCollection;
+    }
+
+    public void setAcoesCollection(Collection<Acoes> acoesCollection) {
+        this.acoesCollection = acoesCollection;
     }
 
 

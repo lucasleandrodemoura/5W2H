@@ -115,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem4);
         jMenu3.add(jSeparator1);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/indicadores_48X48.png"))); // NOI18N
         jMenuItem5.setText("Ações");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

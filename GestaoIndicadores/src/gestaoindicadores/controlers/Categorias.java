@@ -12,11 +12,13 @@ import java.sql.SQLException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import gestaoindicadores.models.HibernateUtil;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +28,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "categorias")
 public class Categorias extends Validacoes implements java.io.Serializable{
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "categorias")
+    private Acoes acoes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +91,14 @@ public class Categorias extends Validacoes implements java.io.Serializable{
         }else{
             return "Inativo";
         }
+    }
+
+    public Acoes getAcoes() {
+        return acoes;
+    }
+
+    public void setAcoes(Acoes acoes) {
+        this.acoes = acoes;
     }
    
 

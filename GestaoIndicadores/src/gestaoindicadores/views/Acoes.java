@@ -68,30 +68,37 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         jTable.setModel(model);
 
         model.addColumn("Código");
-        model.addColumn("Descrição");
-        model.addColumn("Ativo");
-        String sql = "SELECT * FROM acoes";
+        model.addColumn("O que");
+        model.addColumn("Categoria");
+        model.addColumn("Usuário");
+        model.addColumn("Status");
+        String sql = "select acoes.idacoes,acoes.oque, categorias.descricao as descricao_categoira,status.descricao as descricao_status,usuarios.nome from acoes\n" +
+"INNER JOIN usuarios ON acoes.quem = usuarios.idusuarios\n" +
+"INNER JOIN categorias ON acoes.categoria = categorias.idcategorias\n" +
+"INNER JOIN status ON acoes.status = status.idstatus";
 
         String filtro = this.sProcura.getText();
         if (!filtro.equals("")) {
-            sql += " WHERE oque LIKE '%" + filtro + "%' ";
+            sql += " WHERE acoes.oque LIKE '%" + filtro + "%' ";
         }
 
         ResultSet x = new CRUD().select(sql);
-        /*
+        
         try {
             while (x.next()) {
-                obj = new gestaoindicadores.controlers.Acoes(x.getInt("idacoes"), x.getString("descricao"), x.getBoolean("ativo"));
-                model.addRow(new Object[]{"", "", "", ""});
-                this.jTable.setValueAt(obj.getIdacoes(), contador, 0);
-                this.jTable.setValueAt(obj.getDescricao(), contador, 1);
-                this.jTable.setValueAt(obj.getAtivoDescricao(), contador, 2);
+                
+                model.addRow(new Object[]{"", "", "", "", ""});
+                this.jTable.setValueAt(x.getInt("idacoes"), contador, 0);
+                this.jTable.setValueAt(x.getString("oque"), contador, 1);
+                this.jTable.setValueAt(x.getString("descricao_categoria"), contador, 2);
+                this.jTable.setValueAt(x.getString("nome"), contador, 3);
+                this.jTable.setValueAt(x.getString("descricao_status"), contador, 4);
                 contador++;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas" + ex.getMessage());
         }
-        */
+        
 
     }
 
@@ -185,7 +192,8 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
             }
         });
 
-        jButtonAcoesPorDia.setText("Ações por dia");
+        jButtonAcoesPorDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/graph_20x20.png"))); // NOI18N
+        jButtonAcoesPorDia.setText("Ações por mês");
         jButtonAcoesPorDia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAcoesPorDiaActionPerformed(evt);
@@ -202,11 +210,11 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sProcura, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                        .addComponent(sProcura, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAcoesPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAcoesPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -288,35 +296,30 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
     private void jButtonAcoesPorDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcoesPorDiaActionPerformed
         // TODO add your handling code here:
         DefaultCategoryDataset ds = new DefaultCategoryDataset();
-        List resultado = null;
 
+            
+        String sql = "SELECT EXTRACT(MONTH from quando) as quando,count(idacoes) as contagem FROM acoes GROUP BY EXTRACT(MONTH from quando) ORDER BY EXTRACT(MONTH from quando)";
+        
+        ResultSet select = new CRUD().select(sql);
         try {
-            Session sessao = HibernateUtil.getSessionFactory().openSession();
-
-            
-            org.hibernate.Query q = sessao.createQuery("FROM Acoes");
-            
-            resultado = q.list();
-
-            for (Object o : resultado) {
-                gestaoindicadores.controlers.Acoes p = (gestaoindicadores.controlers.Acoes) o;
-                ds.addValue(40.5, "maximo", "dia 1");
-                
-                
+            while(select.next()){
+                ds.addValue(select.getInt("contagem"), "Contagem", "Mês "+select.getString("quando"));
             }
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(Acoes.class.getName()).log(Level.SEVERE, null, ex);
         }
+                
+                
         
       
 
         // cria o gráfico
-        JFreeChart grafico = ChartFactory.createBarChart("Ações por dia", "Dia", 
-            "Valor", ds, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart grafico = ChartFactory.createBarChart("Ações por mês", "Mês", 
+            "Quant", ds, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartPanel = new ChartPanel(grafico);
-        JFrame x = new JFrame("Ações por dia");
-        x.setBounds(0, 0, 500, 300);
+        JFrame x = new JFrame("Ações por mês");
+        x.setBounds(0, 0, 500, 400);
+        
         
         x.add(chartPanel);
         x.setVisible(true);
