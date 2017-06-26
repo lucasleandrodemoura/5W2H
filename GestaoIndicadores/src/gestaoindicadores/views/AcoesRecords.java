@@ -52,8 +52,8 @@ public class AcoesRecords extends javax.swing.JFrame {
 
             for (Object o : resultado) {
                 gestaoindicadores.controlers.Acoes p = (gestaoindicadores.controlers.Acoes) o;
-                this.nome.setText(p.getDescricao());
-                this.ativo.setSelected(p.getAtivo());
+                //this.idCategoria.setText(p.getDescricao());
+                //this.ativo.setSelected(p.getAtivo());
                 
                 
             }
@@ -76,10 +76,25 @@ public class AcoesRecords extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        idCategoria1 = new javax.swing.JTextField();
+        descricaoCategoria1 = new javax.swing.JTextField();
+        jButtonCategoria1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
-        ativo = new javax.swing.JCheckBox();
+        idCategoria = new javax.swing.JTextField();
+        descricaoCategoria = new javax.swing.JTextField();
+        jButtonCategoria = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        idResponsavel = new javax.swing.JTextField();
+        descricaoResponsavel = new javax.swing.JTextField();
+        jButtonResponsavel = new javax.swing.JButton();
+
+        idCategoria1.setEditable(false);
+
+        descricaoCategoria1.setEditable(false);
+
+        jButtonCategoria1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
+        jButtonCategoria1.setToolTipText("Localizar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,9 +106,23 @@ public class AcoesRecords extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Descrição: *");
+        jLabel1.setText("Categoria: *");
 
-        ativo.setText("Ativo");
+        idCategoria.setEditable(false);
+
+        descricaoCategoria.setEditable(false);
+
+        jButtonCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
+        jButtonCategoria.setToolTipText("Localizar");
+
+        jLabel2.setText("Responsável: *");
+
+        idResponsavel.setEditable(false);
+
+        descricaoResponsavel.setEditable(false);
+
+        jButtonResponsavel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
+        jButtonResponsavel.setToolTipText("Localizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,31 +131,46 @@ public class AcoesRecords extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonCategoria)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ativo)
-                                .addGap(48, 276, Short.MAX_VALUE)))))
-                .addContainerGap())
+                        .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonResponsavel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ativo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonCategoria))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonResponsavel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -143,11 +187,11 @@ public class AcoesRecords extends javax.swing.JFrame {
             Transaction t = sessao.beginTransaction();
             
             if(this.codigo == 0){
-                gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.nome.getText(), this.ativo.isSelected());
-                sessao.save(obj);
+               // gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.nome.getText(),idCategorias.ativo.isSelected());
+                //sessao.save(obj);
             }else{
-                gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.codigo,this.nome.getText(), this.ativo.isSelected());
-                sessao.update(obj);
+                //gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.codigo,this.nome.getText(),idCategorias.ativo.isSelected());
+                //sessao.update(obj);
             }
             t.commit();
             JOptionPane.showMessageDialog(null, "Operação realizada com sucesso");
@@ -212,9 +256,17 @@ public class AcoesRecords extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox ativo;
+    private javax.swing.JTextField descricaoCategoria;
+    private javax.swing.JTextField descricaoCategoria1;
+    private javax.swing.JTextField descricaoResponsavel;
+    private javax.swing.JTextField idCategoria;
+    private javax.swing.JTextField idCategoria1;
+    private javax.swing.JTextField idResponsavel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCategoria;
+    private javax.swing.JButton jButtonCategoria1;
+    private javax.swing.JButton jButtonResponsavel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField nome;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
