@@ -1,0 +1,535 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
+
+-- Started on 2017-06-27 21:04:22 BRT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12397)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2216 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 186 (class 1259 OID 16447)
+-- Name: acoes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE acoes (
+    idacoes integer NOT NULL,
+    quem integer NOT NULL,
+    categoria integer NOT NULL,
+    oque character varying(255) NOT NULL,
+    onde character varying(255) NOT NULL,
+    quando date NOT NULL,
+    data_cadastro timestamp without time zone DEFAULT now() NOT NULL,
+    porque character varying(255) NOT NULL,
+    como character varying(255) NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    feedback character varying(255),
+    avisar_envolvidos boolean DEFAULT false,
+    dias_antecedencia integer DEFAULT 0
+);
+
+
+ALTER TABLE acoes OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 16484)
+-- Name: acoes_equipe; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE acoes_equipe (
+    idusuarios integer NOT NULL,
+    idacoes integer NOT NULL,
+    idfuncoes integer NOT NULL
+);
+
+
+ALTER TABLE acoes_equipe OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 16445)
+-- Name: acoes_idacoes_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE acoes_idacoes_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE acoes_idacoes_seq OWNER TO postgres;
+
+--
+-- TOC entry 2217 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: acoes_idacoes_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE acoes_idacoes_seq OWNED BY acoes.idacoes;
+
+
+--
+-- TOC entry 184 (class 1259 OID 16430)
+-- Name: categorias; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE categorias (
+    idcategorias integer NOT NULL,
+    descricao character varying(150) NOT NULL,
+    ativo boolean DEFAULT true
+);
+
+
+ALTER TABLE categorias OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 16428)
+-- Name: categorias_idcategorias_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE categorias_idcategorias_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE categorias_idcategorias_seq OWNER TO postgres;
+
+--
+-- TOC entry 2218 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: categorias_idcategorias_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE categorias_idcategorias_seq OWNED BY categorias.idcategorias;
+
+
+--
+-- TOC entry 188 (class 1259 OID 16477)
+-- Name: funcoes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE funcoes (
+    idfuncoes integer NOT NULL,
+    descricao character varying(150) NOT NULL,
+    ativo boolean DEFAULT true
+);
+
+
+ALTER TABLE funcoes OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 16475)
+-- Name: funcoes_idfuncoes_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE funcoes_idfuncoes_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE funcoes_idfuncoes_seq OWNER TO postgres;
+
+--
+-- TOC entry 2219 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: funcoes_idfuncoes_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE funcoes_idfuncoes_seq OWNED BY funcoes.idfuncoes;
+
+
+--
+-- TOC entry 191 (class 1259 OID 16506)
+-- Name: status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE status (
+    idstatus integer NOT NULL,
+    descricao character varying(45) NOT NULL,
+    ativo boolean DEFAULT true
+);
+
+
+ALTER TABLE status OWNER TO postgres;
+
+--
+-- TOC entry 190 (class 1259 OID 16504)
+-- Name: status_idstatus_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE status_idstatus_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE status_idstatus_seq OWNER TO postgres;
+
+--
+-- TOC entry 2220 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: status_idstatus_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE status_idstatus_seq OWNED BY status.idstatus;
+
+
+--
+-- TOC entry 182 (class 1259 OID 16415)
+-- Name: usuarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE usuarios (
+    idusuarios integer NOT NULL,
+    nome character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    senha character varying(50) NOT NULL,
+    privilegio integer DEFAULT 0,
+    ativo boolean DEFAULT false
+);
+
+
+ALTER TABLE usuarios OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 16413)
+-- Name: usuarios_idusuarios_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE usuarios_idusuarios_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE usuarios_idusuarios_seq OWNER TO postgres;
+
+--
+-- TOC entry 2221 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: usuarios_idusuarios_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE usuarios_idusuarios_seq OWNED BY usuarios.idusuarios;
+
+
+--
+-- TOC entry 2056 (class 2604 OID 16450)
+-- Name: idacoes; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes ALTER COLUMN idacoes SET DEFAULT nextval('acoes_idacoes_seq'::regclass);
+
+
+--
+-- TOC entry 2054 (class 2604 OID 16433)
+-- Name: idcategorias; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY categorias ALTER COLUMN idcategorias SET DEFAULT nextval('categorias_idcategorias_seq'::regclass);
+
+
+--
+-- TOC entry 2061 (class 2604 OID 16480)
+-- Name: idfuncoes; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY funcoes ALTER COLUMN idfuncoes SET DEFAULT nextval('funcoes_idfuncoes_seq'::regclass);
+
+
+--
+-- TOC entry 2063 (class 2604 OID 16509)
+-- Name: idstatus; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY status ALTER COLUMN idstatus SET DEFAULT nextval('status_idstatus_seq'::regclass);
+
+
+--
+-- TOC entry 2051 (class 2604 OID 16418)
+-- Name: idusuarios; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuarios ALTER COLUMN idusuarios SET DEFAULT nextval('usuarios_idusuarios_seq'::regclass);
+
+
+--
+-- TOC entry 2203 (class 0 OID 16447)
+-- Dependencies: 186
+-- Data for Name: acoes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY acoes (idacoes, quem, categoria, oque, onde, quando, data_cadastro, porque, como, status, feedback, avisar_envolvidos, dias_antecedencia) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2206 (class 0 OID 16484)
+-- Dependencies: 189
+-- Data for Name: acoes_equipe; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY acoes_equipe (idusuarios, idacoes, idfuncoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2222 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: acoes_idacoes_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('acoes_idacoes_seq', 9, true);
+
+
+--
+-- TOC entry 2201 (class 0 OID 16430)
+-- Dependencies: 184
+-- Data for Name: categorias; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY categorias (idcategorias, descricao, ativo) FROM stdin;
+1	Ação urgente	t
+\.
+
+
+--
+-- TOC entry 2223 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: categorias_idcategorias_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('categorias_idcategorias_seq', 1, true);
+
+
+--
+-- TOC entry 2205 (class 0 OID 16477)
+-- Dependencies: 188
+-- Data for Name: funcoes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY funcoes (idfuncoes, descricao, ativo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2224 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: funcoes_idfuncoes_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('funcoes_idfuncoes_seq', 1, true);
+
+
+--
+-- TOC entry 2208 (class 0 OID 16506)
+-- Dependencies: 191
+-- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY status (idstatus, descricao, ativo) FROM stdin;
+2	Aberto	t
+3	Fechado	t
+\.
+
+
+--
+-- TOC entry 2225 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: status_idstatus_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('status_idstatus_seq', 3, true);
+
+
+--
+-- TOC entry 2199 (class 0 OID 16415)
+-- Dependencies: 182
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuarios (idusuarios, nome, email, senha, privilegio, ativo) FROM stdin;
+1	Lucas Leandro de Moura	lucas@adevale.com.br	1234	0	t
+4	testataetae	taetae@aetaet.com	121231313113	0	f
+3	eeaeea	aaeea@aaeeaea	aeeaaeeaea	1	f
+5	Admin	admin@admin.com.br	1234	1	t
+\.
+
+
+--
+-- TOC entry 2226 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: usuarios_idusuarios_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('usuarios_idusuarios_seq', 5, true);
+
+
+--
+-- TOC entry 2076 (class 2606 OID 16488)
+-- Name: acoes_equipe_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes_equipe
+    ADD CONSTRAINT acoes_equipe_pkey PRIMARY KEY (idusuarios, idacoes);
+
+
+--
+-- TOC entry 2072 (class 2606 OID 16459)
+-- Name: acoes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes
+    ADD CONSTRAINT acoes_pkey PRIMARY KEY (idacoes);
+
+
+--
+-- TOC entry 2070 (class 2606 OID 16436)
+-- Name: categorias_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY categorias
+    ADD CONSTRAINT categorias_pkey PRIMARY KEY (idcategorias);
+
+
+--
+-- TOC entry 2074 (class 2606 OID 16483)
+-- Name: funcoes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY funcoes
+    ADD CONSTRAINT funcoes_pkey PRIMARY KEY (idfuncoes);
+
+
+--
+-- TOC entry 2078 (class 2606 OID 16512)
+-- Name: status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY status
+    ADD CONSTRAINT status_pkey PRIMARY KEY (idstatus);
+
+
+--
+-- TOC entry 2066 (class 2606 OID 16427)
+-- Name: usuarios_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 2068 (class 2606 OID 16425)
+-- Name: usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (idusuarios);
+
+
+--
+-- TOC entry 2082 (class 2606 OID 16494)
+-- Name: fk_acoes; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes_equipe
+    ADD CONSTRAINT fk_acoes FOREIGN KEY (idacoes) REFERENCES acoes(idacoes);
+
+
+--
+-- TOC entry 2079 (class 2606 OID 16460)
+-- Name: fk_categorias; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes
+    ADD CONSTRAINT fk_categorias FOREIGN KEY (idacoes) REFERENCES categorias(idcategorias);
+
+
+--
+-- TOC entry 2083 (class 2606 OID 16499)
+-- Name: fk_funcoes; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes_equipe
+    ADD CONSTRAINT fk_funcoes FOREIGN KEY (idfuncoes) REFERENCES funcoes(idfuncoes);
+
+
+--
+-- TOC entry 2080 (class 2606 OID 16465)
+-- Name: fk_quem; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes
+    ADD CONSTRAINT fk_quem FOREIGN KEY (quem) REFERENCES usuarios(idusuarios);
+
+
+--
+-- TOC entry 2081 (class 2606 OID 16489)
+-- Name: fk_usuarios; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY acoes_equipe
+    ADD CONSTRAINT fk_usuarios FOREIGN KEY (idusuarios) REFERENCES usuarios(idusuarios);
+
+
+--
+-- TOC entry 2215 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2017-06-27 21:04:23 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+
