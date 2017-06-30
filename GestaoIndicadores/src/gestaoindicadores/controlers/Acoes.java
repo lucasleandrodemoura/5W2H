@@ -13,14 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -28,8 +26,21 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "acoes")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Acoes.findAll", query = "SELECT a FROM Acoes a")})
+    @NamedQuery(name = "Acoes.findAll", query = "SELECT a FROM Acoes a")
+    , @NamedQuery(name = "Acoes.findByIdacoes", query = "SELECT a FROM Acoes a WHERE a.idacoes = :idacoes")
+    , @NamedQuery(name = "Acoes.findByCategoria", query = "SELECT a FROM Acoes a WHERE a.categoria = :categoria")
+    , @NamedQuery(name = "Acoes.findByOque", query = "SELECT a FROM Acoes a WHERE a.oque = :oque")
+    , @NamedQuery(name = "Acoes.findByOnde", query = "SELECT a FROM Acoes a WHERE a.onde = :onde")
+    , @NamedQuery(name = "Acoes.findByDataCadastro", query = "SELECT a FROM Acoes a WHERE a.dataCadastro = :dataCadastro")
+    , @NamedQuery(name = "Acoes.findByPorque", query = "SELECT a FROM Acoes a WHERE a.porque = :porque")
+    , @NamedQuery(name = "Acoes.findByComo", query = "SELECT a FROM Acoes a WHERE a.como = :como")
+    , @NamedQuery(name = "Acoes.findByStatus", query = "SELECT a FROM Acoes a WHERE a.status = :status")
+    , @NamedQuery(name = "Acoes.findByFeedback", query = "SELECT a FROM Acoes a WHERE a.feedback = :feedback")
+    , @NamedQuery(name = "Acoes.findByAvisarEnvolvidos", query = "SELECT a FROM Acoes a WHERE a.avisarEnvolvidos = :avisarEnvolvidos")
+    , @NamedQuery(name = "Acoes.findByDiasAntecedencia", query = "SELECT a FROM Acoes a WHERE a.diasAntecedencia = :diasAntecedencia")
+    , @NamedQuery(name = "Acoes.findByQuando", query = "SELECT a FROM Acoes a WHERE a.quando = :quando")})
 public class Acoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,11 +58,6 @@ public class Acoes implements Serializable {
     @Basic(optional = false)
     @Column(name = "onde")
     private String onde;
-    @Basic(optional = false)
-    @Column(name = "quando")
-    @Temporal(TemporalType.DATE)
-    private Date quando;
-    @Basic(optional = false)
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
@@ -70,12 +76,8 @@ public class Acoes implements Serializable {
     private Boolean avisarEnvolvidos;
     @Column(name = "dias_antecedencia")
     private Integer diasAntecedencia;
-    @JoinColumn(name = "idacoes", referencedColumnName = "idcategorias", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Categorias categorias;
-    @JoinColumn(name = "quem", referencedColumnName = "idusuarios")
-    @ManyToOne(optional = false)
-    private Usuarios quem;
+    @Column(name = "quando")
+    private String quando;
 
     public Acoes() {
     }
@@ -84,13 +86,11 @@ public class Acoes implements Serializable {
         this.idacoes = idacoes;
     }
 
-    public Acoes(Integer idacoes, int categoria, String oque, String onde, Date quando, Date dataCadastro, String porque, String como, int status) {
+    public Acoes(Integer idacoes, int categoria, String oque, String onde, String porque, String como, int status) {
         this.idacoes = idacoes;
         this.categoria = categoria;
         this.oque = oque;
         this.onde = onde;
-        this.quando = quando;
-        this.dataCadastro = dataCadastro;
         this.porque = porque;
         this.como = como;
         this.status = status;
@@ -126,14 +126,6 @@ public class Acoes implements Serializable {
 
     public void setOnde(String onde) {
         this.onde = onde;
-    }
-
-    public Date getQuando() {
-        return quando;
-    }
-
-    public void setQuando(Date quando) {
-        this.quando = quando;
     }
 
     public Date getDataCadastro() {
@@ -192,20 +184,12 @@ public class Acoes implements Serializable {
         this.diasAntecedencia = diasAntecedencia;
     }
 
-    public Categorias getCategorias() {
-        return categorias;
+    public String getQuando() {
+        return quando;
     }
 
-    public void setCategorias(Categorias categorias) {
-        this.categorias = categorias;
-    }
-
-    public Usuarios getQuem() {
-        return quem;
-    }
-
-    public void setQuem(Usuarios quem) {
-        this.quem = quem;
+    public void setQuando(String quando) {
+        this.quando = quando;
     }
 
     @Override
