@@ -274,7 +274,7 @@ public class AcoesRecords extends javax.swing.JFrame {
             Transaction t = sessao.beginTransaction();
             
             if(this.codigo == 0){
-               gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(0, categoria, oque, onde, porque, como, WIDTH)
+               //gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(0, categoria, oque, onde, porque, como, WIDTH)
                 //sessao.save(obj);
             }else{
                 //gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.codigo,this.nome.getText(),idCategorias.ativo.isSelected());
