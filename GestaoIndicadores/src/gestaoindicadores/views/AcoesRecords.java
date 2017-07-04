@@ -84,6 +84,10 @@ public class AcoesRecords extends javax.swing.JFrame {
         idCategoria1 = new javax.swing.JTextField();
         descricaoCategoria1 = new javax.swing.JTextField();
         jButtonCategoria1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        idResponsavel1 = new javax.swing.JTextField();
+        descricaoResponsavel1 = new javax.swing.JTextField();
+        jButtonResponsavel1 = new javax.swing.JButton();
         save = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         idCategoria = new javax.swing.JTextField();
@@ -105,6 +109,10 @@ public class AcoesRecords extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         como = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
+        idStatus = new javax.swing.JTextField();
+        descricaoStatus = new javax.swing.JTextField();
+        jButtonStatus = new javax.swing.JButton();
 
         idCategoria1.setEditable(false);
 
@@ -112,6 +120,20 @@ public class AcoesRecords extends javax.swing.JFrame {
 
         jButtonCategoria1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
         jButtonCategoria1.setToolTipText("Localizar");
+
+        jLabel8.setText("Responsável: *");
+
+        idResponsavel1.setEditable(false);
+
+        descricaoResponsavel1.setEditable(false);
+
+        jButtonResponsavel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
+        jButtonResponsavel1.setToolTipText("Localizar");
+        jButtonResponsavel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResponsavel1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -171,6 +193,20 @@ public class AcoesRecords extends javax.swing.JFrame {
         como.setRows(5);
         jScrollPane2.setViewportView(como);
 
+        jLabel9.setText("Status: *");
+
+        idStatus.setEditable(false);
+
+        descricaoStatus.setEditable(false);
+
+        jButtonStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/search_16X16.png"))); // NOI18N
+        jButtonStatus.setToolTipText("Localizar");
+        jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,39 +220,47 @@ public class AcoesRecords extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(281, 281, 281))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(porque)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(save)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonCategoria)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonResponsavel))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(onde, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(quando)))
-                        .addContainerGap(26, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(idStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(descricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStatus))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(porque)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(save)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonCategoria)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonResponsavel))
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(onde, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(43, 43, 43)
+                                    .addComponent(quando))))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +279,14 @@ public class AcoesRecords extends javax.swing.JFrame {
                         .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonResponsavel))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,7 +306,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(save)
                 .addContainerGap())
         );
@@ -318,6 +369,24 @@ public class AcoesRecords extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_jButtonResponsavelActionPerformed
 
+    private void jButtonResponsavel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResponsavel1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonResponsavel1ActionPerformed
+
+    private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
+        // TODO add your handling code here:
+         buscar x = new buscar();
+        x.campo_codigo = "idstatus";
+        x.tabela = "status";
+        x.campo_descricao = "descricao";
+        x.tela_retorno = this;
+        x.campo_codigo_j = this.idStatus;
+        x.campo_descricao_j = this.descricaoStatus;
+        x.AlimentaTabela();
+        x.setVisible(true);
+    }//GEN-LAST:event_jButtonStatusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,12 +442,18 @@ public class AcoesRecords extends javax.swing.JFrame {
     private javax.swing.JTextField descricaoCategoria;
     private javax.swing.JTextField descricaoCategoria1;
     private javax.swing.JTextField descricaoResponsavel;
+    private javax.swing.JTextField descricaoResponsavel1;
+    private javax.swing.JTextField descricaoStatus;
     private javax.swing.JTextField idCategoria;
     private javax.swing.JTextField idCategoria1;
     private javax.swing.JTextField idResponsavel;
+    private javax.swing.JTextField idResponsavel1;
+    private javax.swing.JTextField idStatus;
     private javax.swing.JButton jButtonCategoria;
     private javax.swing.JButton jButtonCategoria1;
     private javax.swing.JButton jButtonResponsavel;
+    private javax.swing.JButton jButtonResponsavel1;
+    private javax.swing.JButton jButtonStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -386,6 +461,8 @@ public class AcoesRecords extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
