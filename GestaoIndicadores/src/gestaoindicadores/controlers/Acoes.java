@@ -58,6 +58,8 @@ public class Acoes implements Serializable {
     @Basic(optional = false)
     @Column(name = "onde")
     private String onde;
+     @Column(name = "quem")
+    private int quem;
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
@@ -96,6 +98,14 @@ public class Acoes implements Serializable {
         this.status = status;
     }
 
+    public int getQuem() {
+        return quem;
+    }
+
+    public void setQuem(int quem) {
+        this.quem = quem;
+    }
+    
     public Integer getIdacoes() {
         return idacoes;
     }
