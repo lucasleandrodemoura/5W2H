@@ -39,9 +39,9 @@ public class AcoesRecords extends javax.swing.JFrame {
         
      
             this.setTitle("Acoes | Novo");
-            this.btnFechaAcao.setVisible(false);
+//            this.btnFechaAcao.setVisible(false);
             this.save.setText("Salvar");
-            this.btnStakeholders.setVisible(false);
+  //          this.btnStakeholders.setVisible(false);
         
     }
     
@@ -79,8 +79,8 @@ public class AcoesRecords extends javax.swing.JFrame {
         
         
          this.setTitle("Acoes | Editar");
-            this.btnFechaAcao.setVisible(true);
-            this.btnStakeholders.setVisible(true);
+//            this.btnFechaAcao.setVisible(true);
+  //          this.btnStakeholders.setVisible(true);
             this.save.setText("Atualizar");
     }
 
@@ -125,8 +125,6 @@ public class AcoesRecords extends javax.swing.JFrame {
         idStatus = new javax.swing.JTextField();
         descricaoStatus = new javax.swing.JTextField();
         jButtonStatus = new javax.swing.JButton();
-        btnFechaAcao = new javax.swing.JButton();
-        btnStakeholders = new javax.swing.JButton();
 
         idCategoria1.setEditable(false);
 
@@ -221,22 +219,6 @@ public class AcoesRecords extends javax.swing.JFrame {
             }
         });
 
-        btnFechaAcao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/40X56_close.png"))); // NOI18N
-        btnFechaAcao.setText("Fechar ação");
-        btnFechaAcao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFechaAcaoActionPerformed(evt);
-            }
-        });
-
-        btnStakeholders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/48x48_users.png"))); // NOI18N
-        btnStakeholders.setText("Stakeholders");
-        btnStakeholders.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStakeholdersActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,10 +249,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(porque)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnFechaAcao)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnStakeholders)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(132, 132, 132)
                                     .addComponent(save))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
@@ -341,10 +320,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save)
-                    .addComponent(btnFechaAcao)
-                    .addComponent(btnStakeholders))
+                .addComponent(save)
                 .addContainerGap())
         );
 
@@ -368,9 +344,9 @@ public class AcoesRecords extends javax.swing.JFrame {
                 obj.setOnde(this.onde.getText());
                 obj.setOque(this.oque.getText());
                 obj.setPorque(this.porque.getText());
-                obj.setQuando(this.quando.getText());
+  //              obj.setQuando(this.quando.getText());
                 obj.setStatus(Integer.parseInt(this.idStatus.getText()));
-                obj.setQuem(Integer.parseInt(this.idResponsavel.getText()));
+//                obj.setQuem(Integer.parseInt(this.idResponsavel.getText()));
                 sessao.save(obj);
                 
             }else{
@@ -434,14 +410,6 @@ public class AcoesRecords extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_jButtonStatusActionPerformed
 
-    private void btnFechaAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaAcaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFechaAcaoActionPerformed
-
-    private void btnStakeholdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStakeholdersActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStakeholdersActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -493,8 +461,6 @@ public class AcoesRecords extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFechaAcao;
-    private javax.swing.JButton btnStakeholders;
     private javax.swing.JTextArea como;
     private javax.swing.JTextField descricaoCategoria;
     private javax.swing.JTextField descricaoCategoria1;

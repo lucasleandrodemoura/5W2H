@@ -99,10 +99,7 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="porque" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="btnFechaAcao" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnStakeholders" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                                   <Component id="save" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -191,11 +188,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="68" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="save" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnFechaAcao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnStakeholders" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="save" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -355,28 +348,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStatusActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnFechaAcao">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gestaoindicadores/includes/40X56_close.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Fechar a&#xe7;&#xe3;o"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFechaAcaoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnStakeholders">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gestaoindicadores/includes/48x48_users.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Stakeholders"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStakeholdersActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

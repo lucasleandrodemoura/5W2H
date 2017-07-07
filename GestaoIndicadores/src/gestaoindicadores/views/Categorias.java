@@ -53,9 +53,8 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
         String sql = "SELECT * FROM categorias";
 
         String filtro = this.sProcura.getText();
-        sql += " WHERE ativo = TRUE ";
         if (!filtro.equals("")) {
-            sql += " AND descricao LIKE '%" + filtro + "%' ";
+            sql += " WHERE descricao LIKE '%" + filtro + "%' ";
         }
 
         ResultSet x = new CRUD().select(sql);
