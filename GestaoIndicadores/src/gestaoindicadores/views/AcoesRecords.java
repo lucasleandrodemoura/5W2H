@@ -70,7 +70,7 @@ public class AcoesRecords extends javax.swing.JFrame {
 
             for (Object o : resultado) {
                 gestaoindicadores.controlers.Acoes p = (gestaoindicadores.controlers.Acoes) o;
-                this.idCategoria.setText(p.getCategoria()+"");
+                this.como.setText(p.getComo());
                 //this.idCategoria.setText(p.getDescricao());
                 //this.ativo.setSelected(p.getAtivo());
                 

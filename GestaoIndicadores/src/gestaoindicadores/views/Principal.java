@@ -39,6 +39,13 @@ public class Principal extends javax.swing.JFrame {
         this.setBackground(Color.white);
         this.setExtendedState(MAXIMIZED_BOTH);
         
+        if(Config.privilegio==0){
+            this.MenuStake.setEnabled(false);
+            this.menuCategoria.setEnabled(false);
+            this.menuFuncoes.setEnabled(false);
+            this.menuStatus.setEnabled(false);
+        }
+        
      
 
     }
@@ -60,10 +67,10 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        MenuStake = new javax.swing.JMenuItem();
+        menuCategoria = new javax.swing.JMenuItem();
+        menuFuncoes = new javax.swing.JMenuItem();
+        menuStatus = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -97,41 +104,41 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu3.setText("Cadastros");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
-        jMenuItem1.setText("Stakeholders");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MenuStake.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/stakeholders_48X48.png"))); // NOI18N
+        MenuStake.setText("Stakeholders");
+        MenuStake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MenuStakeActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(MenuStake);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/categorias_48X48.png"))); // NOI18N
-        jMenuItem2.setText("Categorias");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/categorias_48X48.png"))); // NOI18N
+        menuCategoria.setText("Categorias");
+        menuCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuCategoriaActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(menuCategoria);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/funcoes_48X48.png"))); // NOI18N
-        jMenuItem3.setText("Funções");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuFuncoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/funcoes_48X48.png"))); // NOI18N
+        menuFuncoes.setText("Funções");
+        menuFuncoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuFuncoesActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(menuFuncoes);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/flag_48x48.png"))); // NOI18N
-        jMenuItem4.setText("Status");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/flag_48x48.png"))); // NOI18N
+        menuStatus.setText("Status");
+        menuStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuStatusActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenu3.add(menuStatus);
         jMenu3.add(jSeparator1);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/indicadores_48X48.png"))); // NOI18N
@@ -200,25 +207,25 @@ public class Principal extends javax.swing.JFrame {
         this.jDesktopPane.updateUI();
     }
     
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MenuStakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuStakeActionPerformed
         // TODO add your handling code here:
         alteraDesktop(new Stakeholders());
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MenuStakeActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCategoriaActionPerformed
         // TODO add your handling code here:
         alteraDesktop(new Categorias());
         
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuCategoriaActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menuFuncoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncoesActionPerformed
         // TODO add your handling code here:
         alteraDesktop(new Funcoes());
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuFuncoesActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStatusActionPerformed
         alteraDesktop(new Status());
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuStatusActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -275,6 +282,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuStake;
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -284,14 +292,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem menuCategoria;
+    private javax.swing.JMenuItem menuFuncoes;
     private javax.swing.JMenuItem menuStake;
+    private javax.swing.JMenuItem menuStatus;
     // End of variables declaration//GEN-END:variables
 }

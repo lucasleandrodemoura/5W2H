@@ -79,10 +79,17 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
 "INNER JOIN usuarios ON acoes.quem = usuarios.idusuarios\n" +
 "INNER JOIN categorias ON acoes.categoria = categorias.idcategorias\n" +
 "INNER JOIN status ON acoes.status = status.idstatus";
-
+  sql += " WHERE 1=1 ";
+  
+    //Se não formos administrador
+    if(Config.privilegio==0){
+      sql += " AND acoes.quem = " + Config.usuario_logado;
+    }
+  
+  
         String filtro = this.sProcura.getText();
         if (!filtro.equals("")) {
-            sql += " WHERE acoes.oque LIKE '%" + filtro + "%' ";
+            sql += " AND acoes.oque LIKE '%" + filtro + "%' ";
         }
 
         ResultSet x = new CRUD().select(sql);
