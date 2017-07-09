@@ -190,21 +190,21 @@ public class AcoesRecords extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("O que?");
+        jLabel3.setText("O que? *");
 
         oque.setColumns(20);
         oque.setRows(5);
         jScrollPane1.setViewportView(oque);
 
-        jLabel4.setText("Onde?");
+        jLabel4.setText("Onde? *");
 
         quando.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        jLabel5.setText("Quando?");
+        jLabel5.setText("Quando? *");
 
-        jLabel6.setText("Porque?");
+        jLabel6.setText("Porque? *");
 
-        jLabel7.setText("Como?");
+        jLabel7.setText("Como? *");
 
         como.setColumns(20);
         como.setRows(5);
@@ -253,9 +253,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                                 .addComponent(jButtonStatus))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(porque)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(132, 132, 132)
-                                    .addComponent(save))
+                                .addComponent(save)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addGap(32, 32, 32)
@@ -304,7 +302,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                         .addComponent(idStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(descricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonStatus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,7 +324,7 @@ public class AcoesRecords extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(save)
-                .addContainerGap())
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -335,7 +333,31 @@ public class AcoesRecords extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        
+        if(this.idCategoria.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo CATEGORIA é obrigatório");
+        }
+        else if(this.idResponsavel.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo RESPONSÁVEL é obrigatório");
+        }
+        else if(this.idStatus.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo STATUS é obrigatório");
+        }
+        else if(this.oque.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo O QUE é obrigatório");
+        }
+        else if(this.onde.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo ONDE é obrigatório");
+        }
+        else if(this.quando.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo QUANDO é obrigatório");
+        }
+        else if(this.porque.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo PORQUE é obrigatório");
+        }
+        else if(this.como.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Campo COMO é obrigatório");
+        }
+        else {
          Session sessao = null;
          
          
@@ -353,7 +375,10 @@ public class AcoesRecords extends javax.swing.JFrame {
             obj.setOnde(this.onde.getText());
             obj.setOque(this.oque.getText());
             obj.setPorque(this.porque.getText());
-            obj.setQuando(this.quando.getText());
+            String q = this.quando.getText();
+            String data[] = q.split("/");
+            q = data[2]+"-"+data[1]+"-"+data[0];
+            obj.setQuando(q);
             obj.setQuem(new Usuarios(Integer.parseInt(this.idResponsavel.getText())));
             obj.setStatus(Integer.parseInt(this.idStatus.getText()));
             
@@ -364,8 +389,9 @@ public class AcoesRecords extends javax.swing.JFrame {
                 
                 
             }else{
-                //gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.codigo,this.nome.getText(),idCategorias.ativo.isSelected());
-                //sessao.update(obj);
+                obj.setIdacoes(this.codigo);
+                
+                sessao.update(obj);
             }
             t.commit();
             JOptionPane.showMessageDialog(null, "Operação realizada com sucesso");
@@ -376,6 +402,8 @@ public class AcoesRecords extends javax.swing.JFrame {
         } finally {
             sessao.close();
         }
+                
+                }
         
         
     }//GEN-LAST:event_saveActionPerformed

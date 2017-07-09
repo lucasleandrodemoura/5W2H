@@ -292,12 +292,13 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         DefaultCategoryDataset ds = new DefaultCategoryDataset();
 
             
-        String sql = "SELECT EXTRACT(MONTH from quando) as quando,count(idacoes) as contagem FROM acoes GROUP BY EXTRACT(MONTH from quando) ORDER BY EXTRACT(MONTH from quando)";
+        String sql = "select count(idacoes) as contagem, usuarios.nome from acoes INNER JOIN usuarios ON acoes.quem = usuarios.idusuarios\n" +
+"group by usuarios.nome";
         
         ResultSet select = new CRUD().select(sql);
         try {
             while(select.next()){
-                ds.addValue(select.getInt("contagem"), "Contagem", "Mês "+select.getString("quando"));
+                ds.addValue(select.getInt("contagem"), "Contagem", select.getString("nome"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Acoes.class.getName()).log(Level.SEVERE, null, ex);
@@ -308,10 +309,10 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
       
 
         // cria o gráfico
-        JFreeChart grafico = ChartFactory.createBarChart("Ações por mês", "Mês", 
+        JFreeChart grafico = ChartFactory.createBarChart("Ações por responśavel", "Responsável", 
             "Quant", ds, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartPanel = new ChartPanel(grafico);
-        JFrame x = new JFrame("Ações por mês");
+        JFrame x = new JFrame("Ações por responśavel");
         x.setBounds(0, 0, 500, 400);
         
         
