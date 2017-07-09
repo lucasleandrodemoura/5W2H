@@ -25,7 +25,12 @@ public class CRUD {
      /**
       * Realiza a conexão
       */
-     public CRUD() {
+    
+     public Connection getConexao() {
+        return conexao;
+    }
+
+    public CRUD() {
         try {
          
             String dbdriver = "org.postgresql.Driver";

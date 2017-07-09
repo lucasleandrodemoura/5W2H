@@ -72,7 +72,10 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         model.addColumn("Categoria");
         model.addColumn("Usuário");
         model.addColumn("Status");
-        String sql = "select acoes.idacoes,acoes.oque, categorias.descricao as descricao_categoira,status.descricao as descricao_status,usuarios.nome from acoes\n" +
+        String sql = "select acoes.idacoes,acoes.oque, "
+                + "categorias.descricao as descricao_categoria,"
+                + "status.descricao as descricao_status,"
+                + "usuarios.nome from acoes\n" +
 "INNER JOIN usuarios ON acoes.quem = usuarios.idusuarios\n" +
 "INNER JOIN categorias ON acoes.categoria = categorias.idcategorias\n" +
 "INNER JOIN status ON acoes.status = status.idstatus";
@@ -117,9 +120,9 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
+        jButtonAcoesPorDia = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         sProcura = new javax.swing.JTextField();
-        jButtonAcoesPorDia = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -184,6 +187,14 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         });
         jToolBar1.add(btnDel);
 
+        jButtonAcoesPorDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/graph_20x20.png"))); // NOI18N
+        jButtonAcoesPorDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcoesPorDiaActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonAcoesPorDia);
+
         jLabel1.setText("Procurar");
 
         sProcura.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -192,30 +203,17 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
             }
         });
 
-        jButtonAcoesPorDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/graph_20x20.png"))); // NOI18N
-        jButtonAcoesPorDia.setText("Ações por mês");
-        jButtonAcoesPorDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAcoesPorDiaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sProcura, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonAcoesPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sProcura)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,11 +224,7 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
                     .addComponent(jLabel1)
                     .addComponent(sProcura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAcoesPorDia)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
         );
 
         pack();

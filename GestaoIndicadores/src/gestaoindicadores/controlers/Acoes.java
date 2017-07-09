@@ -47,11 +47,6 @@ public class Acoes implements Serializable {
     @Basic(optional = false)
     @Column(name = "onde")
     private String onde;
-    @Basic(optional = false)
-    @Column(name = "quando")
-    @Temporal(TemporalType.DATE)
-    private Date quando;
-    @Basic(optional = false)
     @Column(name = "data_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
@@ -70,12 +65,16 @@ public class Acoes implements Serializable {
     private Boolean avisarEnvolvidos;
     @Column(name = "dias_antecedencia")
     private Integer diasAntecedencia;
+    @Column(name = "quando")
+    private String quando;
     @JoinColumn(name = "idacoes", referencedColumnName = "idcategorias", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Categorias categorias;
     @JoinColumn(name = "quem", referencedColumnName = "idusuarios")
     @ManyToOne(optional = false)
     private Usuarios quem;
+    
+    
 
     public Acoes() {
     }
@@ -84,13 +83,30 @@ public class Acoes implements Serializable {
         this.idacoes = idacoes;
     }
 
-    public Acoes(Integer idacoes, int categoria, String oque, String onde, Date quando, Date dataCadastro, String porque, String como, int status) {
+    public Acoes(Integer idacoes, int categoria, String oque, String onde, Date dataCadastro, String porque, String como, int status, String feedback, Boolean avisarEnvolvidos, Integer diasAntecedencia, String quando, Categorias categorias, Usuarios quem) {
         this.idacoes = idacoes;
         this.categoria = categoria;
         this.oque = oque;
         this.onde = onde;
-        this.quando = quando;
         this.dataCadastro = dataCadastro;
+        this.porque = porque;
+        this.como = como;
+        this.status = status;
+        this.feedback = feedback;
+        this.avisarEnvolvidos = avisarEnvolvidos;
+        this.diasAntecedencia = diasAntecedencia;
+        this.quando = quando;
+        this.categorias = categorias;
+        this.quem = quem;
+    }
+    
+    
+
+    public Acoes(Integer idacoes, int categoria, String oque, String onde, String porque, String como, int status) {
+        this.idacoes = idacoes;
+        this.categoria = categoria;
+        this.oque = oque;
+        this.onde = onde;
         this.porque = porque;
         this.como = como;
         this.status = status;
@@ -126,14 +142,6 @@ public class Acoes implements Serializable {
 
     public void setOnde(String onde) {
         this.onde = onde;
-    }
-
-    public Date getQuando() {
-        return quando;
-    }
-
-    public void setQuando(Date quando) {
-        this.quando = quando;
     }
 
     public Date getDataCadastro() {
@@ -190,6 +198,14 @@ public class Acoes implements Serializable {
 
     public void setDiasAntecedencia(Integer diasAntecedencia) {
         this.diasAntecedencia = diasAntecedencia;
+    }
+
+    public String getQuando() {
+        return quando;
+    }
+
+    public void setQuando(String quando) {
+        this.quando = quando;
     }
 
     public Categorias getCategorias() {

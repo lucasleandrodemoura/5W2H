@@ -4,14 +4,12 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT * FROM usuarios]]>
+		<![CDATA[SELECT nome,email,CASE WHEN ativo THEN 'Sim' ELSE 'Não' END as ativo FROM usuarios
+ORDER BY nome]]>
 	</queryString>
-	<field name="idusuarios" class="java.lang.Integer"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="email" class="java.lang.String"/>
-	<field name="senha" class="java.lang.String"/>
-	<field name="privilegio" class="java.lang.Integer"/>
-	<field name="ativo" class="java.lang.Boolean"/>
+	<field name="ativo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,15 +31,43 @@
 		<band height="21" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="20" uuid="54cb310a-99bd-4329-a86f-bc1b59098b9d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="1" width="100" height="20" uuid="327b1a4b-a232-41f9-996f-6f294ceba161"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="1" width="100" height="20" uuid="1b1c3ad3-1500-41e8-b5f9-fe2428da20e2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ativo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="24" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="2" y="3" width="179" height="20" uuid="5e2ac122-4079-446f-84c8-6acfddf0756b"/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="26" width="553" height="1" uuid="a10fbbd8-2cd8-4bc4-a461-452f25e867d4"/>
+			</line>
+			<textField>
+				<reportElement x="211" y="3" width="173" height="20" uuid="0acd42b2-6521-47d7-9b23-a7291c8d69bf"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="3" width="100" height="20" uuid="07a02137-1eae-437f-b297-e9ea37e4da68"/>
+				<textFieldExpression><![CDATA[$F{ativo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

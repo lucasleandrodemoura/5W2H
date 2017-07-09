@@ -10,7 +10,12 @@ import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.HibernateUtil;
 import java.awt.Color;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -332,22 +337,31 @@ public class AcoesRecords extends javax.swing.JFrame {
         // TODO add your handling code here:
         
          Session sessao = null;
-
+         
+         
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
+            gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes();
+            obj.setAvisarEnvolvidos(false);
+            obj.setCategoria(Integer.parseInt(this.idCategoria.getText()));
+            obj.setCategorias(new gestaoindicadores.controlers.Categorias(Integer.parseInt(this.idCategoria.getText())));
+            obj.setComo(this.como.getText());
+            obj.setDataCadastro(new Date(System.currentTimeMillis()));
+            obj.setDiasAntecedencia(0);
+            obj.setFeedback("");
+            obj.setOnde(this.onde.getText());
+            obj.setOque(this.oque.getText());
+            obj.setPorque(this.porque.getText());
+            obj.setQuando(this.quando.getText());
+            obj.setQuem(new Usuarios(Integer.parseInt(this.idResponsavel.getText())));
+            obj.setStatus(Integer.parseInt(this.idStatus.getText()));
             
             if(this.codigo == 0){
-                gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes();
-                obj.setCategoria(Integer.parseInt(this.idCategoria.getText()));
-                obj.setComo(this.como.getText());
-                obj.setOnde(this.onde.getText());
-                obj.setOque(this.oque.getText());
-                obj.setPorque(this.porque.getText());
-  //              obj.setQuando(this.quando.getText());
-                obj.setStatus(Integer.parseInt(this.idStatus.getText()));
-//                obj.setQuem(Integer.parseInt(this.idResponsavel.getText()));
+                
+                
                 sessao.save(obj);
+                
                 
             }else{
                 //gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes(this.codigo,this.nome.getText(),idCategorias.ativo.isSelected());
@@ -357,7 +371,7 @@ public class AcoesRecords extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Operação realizada com sucesso");
             this.dispose();
         } catch (HibernateException he) {
-            JOptionPane.showMessageDialog(null, "ERRO: "+he.getMessage());
+            JOptionPane.showMessageDialog(null, "ERRO: "+he.getMessage()+" "+he.getLocalizedMessage());
             he.printStackTrace();
         } finally {
             sessao.close();

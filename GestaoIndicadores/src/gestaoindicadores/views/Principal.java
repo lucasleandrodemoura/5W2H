@@ -5,12 +5,24 @@
  */
 package gestaoindicadores.views;
 
+import com.mysql.jdbc.Connection;
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.Config;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -23,8 +35,10 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        
         this.setBackground(Color.white);
-        this.setExtendedState(MAXIMIZED_BOTH);;
+        this.setExtendedState(MAXIMIZED_BOTH);
+        
      
 
     }
@@ -42,6 +56,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -51,6 +66,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        menuStake = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
@@ -128,9 +145,28 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu3);
 
+        jMenu6.setText("Relatórios");
+
+        menuStake.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/48X48_print.png"))); // NOI18N
+        menuStake.setText("Ações");
+        menuStake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuStakeActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menuStake);
+
+        jMenuBar2.add(jMenu6);
+
         jMenu4.setText("Sistema");
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/40X56_close.png"))); // NOI18N
         jMenuItem6.setText("Logoff");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem6);
 
         jMenuBar2.add(jMenu4);
@@ -189,6 +225,18 @@ public class Principal extends javax.swing.JFrame {
         alteraDesktop(new Acoes());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void menuStakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStakeActionPerformed
+        // TODO add your handling code here:
+
+       new relatorioAcoesFiltro().setVisible(true);
+    }//GEN-LAST:event_menuStakeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,7 +268,8 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                Principal principal = new Principal();
+                principal.setVisible(true);
             }
         });
     }
@@ -232,6 +281,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
@@ -240,6 +290,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem menuStake;
     // End of variables declaration//GEN-END:variables
 }
