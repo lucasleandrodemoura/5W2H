@@ -88,7 +88,6 @@ public class Status extends javax.swing.JInternalFrame implements TelaVIEW {
         jToolBar1 = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         sProcura = new javax.swing.JTextField();
 
@@ -143,18 +142,6 @@ public class Status extends javax.swing.JInternalFrame implements TelaVIEW {
         });
         jToolBar1.add(btnEditar);
 
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/del_16X16.png"))); // NOI18N
-        btnDel.setToolTipText("Excluir");
-        btnDel.setFocusable(false);
-        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnDel);
-
         jLabel1.setText("Procurar");
 
         sProcura.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -202,36 +189,6 @@ public class Status extends javax.swing.JInternalFrame implements TelaVIEW {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        // TODO add your handling code here:
-        if (this.jTable.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado");
-        } else {
-            int selectedRow = this.jTable.getSelectedRow();
-            int id = (int) this.jTable.getValueAt(selectedRow, 0);
-
-            if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este registro?") == 0) {
-                Session sessao = null;
-
-                try {
-                    sessao = HibernateUtil.getSessionFactory().openSession();
-                    Transaction t = sessao.beginTransaction();
-                    obj = new gestaoindicadores.controlers.Status(id);
-                    sessao.delete(obj);
-                    t.commit();
-                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso");
-                    this.AlimentaTabela();
-                } catch (HibernateException he) {
-                    JOptionPane.showMessageDialog(null, "ERRO: " + he.getMessage());
-                    he.printStackTrace();
-                } finally {
-                    sessao.close();
-                }
-            }
-
-        }
-    }//GEN-LAST:event_btnDelActionPerformed
-
     private void sProcuraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sProcuraKeyPressed
         // TODO add your handling code here:
         this.AlimentaTabela();
@@ -249,7 +206,6 @@ public class Status extends javax.swing.JInternalFrame implements TelaVIEW {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JLabel jLabel1;
