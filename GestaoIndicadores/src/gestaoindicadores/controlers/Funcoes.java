@@ -12,11 +12,14 @@ import java.sql.SQLException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import gestaoindicadores.models.HibernateUtil;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +29,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "funcoes")
 public class Funcoes extends Validacoes implements java.io.Serializable{
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfuncoes")
+    private Collection<AcoesEquipe> acoesEquipeCollection;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +92,14 @@ public class Funcoes extends Validacoes implements java.io.Serializable{
         }else{
             return "Inativo";
         }
+    }
+
+    public Collection<AcoesEquipe> getAcoesEquipeCollection() {
+        return acoesEquipeCollection;
+    }
+
+    public void setAcoesEquipeCollection(Collection<AcoesEquipe> acoesEquipeCollection) {
+        this.acoesEquipeCollection = acoesEquipeCollection;
     }
    
 

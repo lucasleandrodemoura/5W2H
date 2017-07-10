@@ -52,6 +52,8 @@ Contributor(s):
         <mapping class="gestaoindicadores.controlers.Usuarios"/>
         <mapping class="gestaoindicadores.controlers.Status"/>
         <mapping class="gestaoindicadores.controlers.Acoes"/>
+        <mapping class="gestaoindicadores.controlers.AcoesEquipe"/>
+        <mapping class="gestaoindicadores.controlers.AcoesEquipePK"/>
         
     </session-factory>
 </hibernate-configuration>

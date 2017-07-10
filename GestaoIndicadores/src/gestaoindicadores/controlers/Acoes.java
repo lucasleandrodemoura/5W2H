@@ -6,8 +6,10 @@
 package gestaoindicadores.controlers;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,6 +34,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Acoes.findAll", query = "SELECT a FROM Acoes a")})
 public class Acoes implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "acoes")
+    private Collection<AcoesEquipe> acoesEquipeCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,12 +73,24 @@ public class Acoes implements Serializable {
     private Integer diasAntecedencia;
     @Column(name = "quando")
     private String quando;
-    @JoinColumn(name = "idacoes", referencedColumnName = "idcategorias", insertable = false, updatable = false)
+    @JoinColumn(name = "categoria", referencedColumnName = "idcategorias", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Categorias categorias;
+    @JoinColumn(name = "status", referencedColumnName = "idstatus", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Status statusC;
     @JoinColumn(name = "quem", referencedColumnName = "idusuarios")
     @ManyToOne(optional = false)
     private Usuarios quem;
+
+    public Status getStatusC() {
+        return statusC;
+    }
+
+    public void setStatusC(Status statusC) {
+        this.statusC = statusC;
+    }
+    
     
     
 
@@ -247,6 +265,14 @@ public class Acoes implements Serializable {
     @Override
     public String toString() {
         return "gestaoindicadores.controlers.Acoes[ idacoes=" + idacoes + " ]";
+    }
+
+    public Collection<AcoesEquipe> getAcoesEquipeCollection() {
+        return acoesEquipeCollection;
+    }
+
+    public void setAcoesEquipeCollection(Collection<AcoesEquipe> acoesEquipeCollection) {
+        this.acoesEquipeCollection = acoesEquipeCollection;
     }
     
 }

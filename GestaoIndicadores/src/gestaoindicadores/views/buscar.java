@@ -30,6 +30,7 @@ public class buscar extends javax.swing.JFrame {
     public String campo_descricao;
     public String tabela;
     public AcoesRecords tela_retorno;
+    public StakeholdersAcoes tela_retorno2;
     public JTextField campo_codigo_j;
     public JTextField campo_descricao_j;
     
@@ -196,7 +197,11 @@ public class buscar extends javax.swing.JFrame {
         if(linha>=0){
             String codigo = String.valueOf(this.jTable.getValueAt(linha, 0));
             String descricao = String.valueOf(this.jTable.getValueAt(linha, 1));
-            tela_retorno.seleciona(codigo, descricao,this.campo_codigo_j,this.campo_descricao_j);
+            if(tela_retorno==null){
+                tela_retorno2.seleciona(codigo, descricao,this.campo_codigo_j,this.campo_descricao_j);
+            } else {
+                tela_retorno.seleciona(codigo, descricao,this.campo_codigo_j,this.campo_descricao_j);
+            }
             this.dispose();
             
         }else{

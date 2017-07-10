@@ -42,6 +42,7 @@ public class AcoesRecords extends javax.swing.JFrame {
         initComponents();
         this.setBackground(Color.white);
         
+        this.btnStakeholders.setVisible(false);
      
             this.setTitle("Acoes | Novo");
 //            this.btnFechaAcao.setVisible(false);
@@ -70,10 +71,19 @@ public class AcoesRecords extends javax.swing.JFrame {
 
             for (Object o : resultado) {
                 gestaoindicadores.controlers.Acoes p = (gestaoindicadores.controlers.Acoes) o;
+                this.idCategoria.setText(p.getCategoria()+"");
+                this.descricaoCategoria.setText(p.getCategorias().getDescricao());
+                this.idStatus.setText(p.getStatus()+"");
+                this.descricaoStatus.setText(p.getStatusC().getDescricao());
+                this.idResponsavel.setText(p.getQuem().getIdusuarios()+"");
+                this.descricaoResponsavel.setText(p.getQuem().getNome());
+                this.oque.setText(p.getOque());
+                this.onde.setText(p.getOnde());
+                String quando = p.getQuando();
+                String[] quandoS = quando.split("-");
+                this.quando.setText(quandoS[2]+"/"+quandoS[1]+"/"+quandoS[0]);
+                this.porque.setText(p.getPorque());
                 this.como.setText(p.getComo());
-                //this.idCategoria.setText(p.getDescricao());
-                //this.ativo.setSelected(p.getAtivo());
-                
                 
             }
 
@@ -130,6 +140,7 @@ public class AcoesRecords extends javax.swing.JFrame {
         idStatus = new javax.swing.JTextField();
         descricaoStatus = new javax.swing.JTextField();
         jButtonStatus = new javax.swing.JButton();
+        btnStakeholders = new javax.swing.JButton();
 
         idCategoria1.setEditable(false);
 
@@ -224,6 +235,14 @@ public class AcoesRecords extends javax.swing.JFrame {
             }
         });
 
+        btnStakeholders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/48x48_users.png"))); // NOI18N
+        btnStakeholders.setText("Stakeholders");
+        btnStakeholders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStakeholdersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,37 +264,45 @@ public class AcoesRecords extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(porque)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(idStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(descricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonStatus))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(porque)
-                                .addComponent(save)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonCategoria))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonResponsavel))
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(onde, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(43, 43, 43)
-                                    .addComponent(quando))))
+                                .addComponent(btnStakeholders)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(save))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(onde, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(quando))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(idResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(descricaoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonResponsavel))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(idStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(descricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonStatus))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(idCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(descricaoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonCategoria)))))
                         .addContainerGap(26, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -320,11 +347,13 @@ public class AcoesRecords extends javax.swing.JFrame {
                 .addComponent(porque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(save)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(save)
+                    .addComponent(btnStakeholders))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -390,7 +419,11 @@ public class AcoesRecords extends javax.swing.JFrame {
                 
             }else{
                 obj.setIdacoes(this.codigo);
-                
+                //Se o status for fechado
+                if(obj.getStatus()==3){
+                    String feedback = JOptionPane.showInputDialog(null, "Digite um feedback para esta ação");
+                    obj.setFeedback(feedback);
+                }
                 sessao.update(obj);
             }
             t.commit();
@@ -452,6 +485,12 @@ public class AcoesRecords extends javax.swing.JFrame {
         x.setVisible(true);
     }//GEN-LAST:event_jButtonStatusActionPerformed
 
+    private void btnStakeholdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStakeholdersActionPerformed
+        // TODO add your handling code here:
+        StakeholdersAcoes stakeholdersAcoes = new StakeholdersAcoes(this.codigo);
+        stakeholdersAcoes.setVisible(true);
+    }//GEN-LAST:event_btnStakeholdersActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -503,6 +542,7 @@ public class AcoesRecords extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnStakeholders;
     private javax.swing.JTextArea como;
     private javax.swing.JTextField descricaoCategoria;
     private javax.swing.JTextField descricaoCategoria1;

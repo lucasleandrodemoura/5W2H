@@ -30,6 +30,9 @@ import javax.persistence.Table;
 @Table(name = "usuarios")
 public class Usuarios extends Validacoes implements java.io.Serializable{
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
+    private Collection<AcoesEquipe> acoesEquipeCollection;
+
     @Column(name = "privilegio")
     private Integer privilegio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quem")
@@ -205,6 +208,14 @@ public class Usuarios extends Validacoes implements java.io.Serializable{
 
     public void setAcoesCollection(Collection<Acoes> acoesCollection) {
         this.acoesCollection = acoesCollection;
+    }
+
+    public Collection<AcoesEquipe> getAcoesEquipeCollection() {
+        return acoesEquipeCollection;
+    }
+
+    public void setAcoesEquipeCollection(Collection<AcoesEquipe> acoesEquipeCollection) {
+        this.acoesEquipeCollection = acoesEquipeCollection;
     }
 
 

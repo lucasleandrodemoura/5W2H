@@ -3,6 +3,7 @@
   <persistence-unit name="TestePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>gestaoindicadores.controlers.Acoes</class>
+    <class>gestaoindicadores.controlers.AcoesEquipe</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/aula"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
