@@ -103,15 +103,15 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+            <Property name="text" type="java.lang.String" value="Exportar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuStake">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gestaoindicadores/includes/48X48_print.png"/>
+                  <Image iconType="3" name="/gestaoindicadores/includes/graph_20x20.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="A&#xe7;&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Salvar em PDF pendentes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuStakeActionPerformed"/>

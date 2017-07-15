@@ -7,6 +7,7 @@ package gestaoindicadores.views;
 
 
 import dori.jasper.engine.JasperManager;
+import dori.jasper.engine.util.JRLoader;
 import gestaoindicadores.models.CRUD;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +21,9 @@ import net.sf.jasperreports.view.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+
 
 /**
  *
@@ -104,7 +107,22 @@ public class relatorioAcoesFiltro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+            
+        HashMap map = new HashMap();
+        String arquivo = "relatorioAcoes.jasper";
+        
+        try {
+            JasperReport jasperReport;
+        jasperReport = (JasperReport) JRLoader.loadObject(arquivo);
+        JasperPrint jasperPrint;
+            jasperPrint = JasperFillManager.fillReport(jasperReport, map,new CRUD().getConexao());
+            JasperViewer jrviewer = new JasperViewer(jasperPrint, false);
+            jrviewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(relatorioAcoesFiltro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (dori.jasper.engine.JRException ex) {
+            Logger.getLogger(relatorioAcoesFiltro.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
             // TODO add your handling code here:
       

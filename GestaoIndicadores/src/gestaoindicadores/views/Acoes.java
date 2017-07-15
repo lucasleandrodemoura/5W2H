@@ -72,8 +72,10 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         model.addColumn("Categoria");
         model.addColumn("Usuário");
         model.addColumn("Status");
+        model.addColumn("Quando");
         String sql = "select acoes.idacoes,acoes.oque, "
                 + "categorias.descricao as descricao_categoria,"
+                + "acoes.quando as quando,"
                 + "status.descricao as descricao_status,"
                 + "usuarios.nome from acoes\n" +
 "INNER JOIN usuarios ON acoes.quem = usuarios.idusuarios\n" +
@@ -97,12 +99,13 @@ public class Acoes extends javax.swing.JInternalFrame implements TelaVIEW {
         try {
             while (x.next()) {
                 
-                model.addRow(new Object[]{"", "", "", "", ""});
+                model.addRow(new Object[]{"", "","", "", "", ""});
                 this.jTable.setValueAt(x.getInt("idacoes"), contador, 0);
                 this.jTable.setValueAt(x.getString("oque"), contador, 1);
                 this.jTable.setValueAt(x.getString("descricao_categoria"), contador, 2);
                 this.jTable.setValueAt(x.getString("nome"), contador, 3);
                 this.jTable.setValueAt(x.getString("descricao_status"), contador, 4);
+                this.jTable.setValueAt(x.getString("quando"), contador, 5);
                 contador++;
             }
         } catch (SQLException ex) {

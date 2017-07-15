@@ -6,16 +6,22 @@
 package gestaoindicadores.views;
 
 import com.mysql.jdbc.Connection;
+import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.Config;
+import gestaoindicadores.models.PDF;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.File;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
@@ -37,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         
         this.setBackground(Color.white);
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         
         if(Config.privilegio==0){
             this.MenuStake.setEnabled(false);
@@ -46,6 +52,9 @@ public class Principal extends javax.swing.JFrame {
             this.menuStatus.setEnabled(false);
         }
         
+        this.jDesktopPane.setBackground(Color.GRAY);
+        
+        this.pendencia();
      
 
     }
@@ -152,10 +161,10 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu3);
 
-        jMenu6.setText("Relatórios");
+        jMenu6.setText("Exportar");
 
-        menuStake.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/48X48_print.png"))); // NOI18N
-        menuStake.setText("Ações");
+        menuStake.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestaoindicadores/includes/graph_20x20.png"))); // NOI18N
+        menuStake.setText("Salvar em PDF pendentes");
         menuStake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuStakeActionPerformed(evt);
@@ -205,6 +214,24 @@ public class Principal extends javax.swing.JFrame {
         this.jDesktopPane.repaint();
         
         this.jDesktopPane.updateUI();
+        
+    }
+    
+    
+    public void pendencia(){
+        String sql = "select oque from acoes where quando <= CONCAT(CURRENT_DATE,'') and status <> 1 and quem = "+Config.usuario_logado;
+        ResultSet x = new CRUD().select(sql);
+        String retorno = "";
+        try {
+            while (x.next()) {
+                retorno+="\n"+x.getString("oque");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Problemas na alimentação das tabelas" + ex.getMessage());
+        }
+        if(!retorno.equals("")){
+            JOptionPane.showMessageDialog(null,"Voce tem açoes vencidas em aberto\n"+retorno);
+        }
     }
     
     private void MenuStakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuStakeActionPerformed
@@ -240,8 +267,35 @@ public class Principal extends javax.swing.JFrame {
 
     private void menuStakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuStakeActionPerformed
         // TODO add your handling code here:
+        JFileChooser local = new JFileChooser();
+        //local.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        local.setDialogTitle("Escolha um local para salvar");
+        local.setFileHidingEnabled(false);
+        int res = local.showSaveDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            String caminho = String.valueOf(local.getSelectedFile());
+            try {
+                String arquivo = "";
+                
+                String sql = "select oque,porque,quando,como from acoes where quando <= CONCAT(CURRENT_DATE,'') and status <> 1 and quem = "+Config.usuario_logado;
+                ResultSet x = new CRUD().select(sql);
+                while(x.next()){
+                    arquivo+="O que? "+x.getString("oque")+"  \n Porque:  "+x.getString("porque")+"   \n Quando:  "+x.getString("quando")+" \n Como: "+x.getString("como")+"\n\n\n----------------------------------------------------\n";
+                }
+                
+                
+                 PDF.exportarPDF(caminho + ".pdf", "Relatorio", arquivo);
+                 
+                 JOptionPane.showMessageDialog(null, "PDF criado com sucesso");
+              
+                 
+                 
+             } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(null, "Erro em criar o arquivo PDF: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                 System.out.println("Erro em criar o arquivo PDF: " + ex.getMessage());
+             }
+        }
 
-       new relatorioAcoesFiltro().setVisible(true);
     }//GEN-LAST:event_menuStakeActionPerformed
 
     /**

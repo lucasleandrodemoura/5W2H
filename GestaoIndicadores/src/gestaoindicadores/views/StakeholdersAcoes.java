@@ -5,6 +5,7 @@
  */
 package gestaoindicadores.views;
 
+import gestaoindicadores.controlers.AcoesEquipePK;
 import gestaoindicadores.controlers.Usuarios;
 import gestaoindicadores.models.CRUD;
 import gestaoindicadores.models.Config;
@@ -230,10 +231,10 @@ public class StakeholdersAcoes extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        if(this.idCategoria.getText().equals("")){
+        if(this.idResponsavel.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Campo Stakeholders é obrigatório");
         }
-        else if(this.idResponsavel.getText().equals("")){
+        else if(this.idCategoria.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Campo Função é obrigatório");
         }
         else {
@@ -243,7 +244,9 @@ public class StakeholdersAcoes extends javax.swing.JFrame {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             Transaction t = sessao.beginTransaction();
-            gestaoindicadores.controlers.Acoes obj = new gestaoindicadores.controlers.Acoes();
+            gestaoindicadores.controlers.AcoesEquipePK pl = new gestaoindicadores.controlers.AcoesEquipePK(Integer.parseInt(this.idResponsavel.getText()), this.codigo);
+            gestaoindicadores.controlers.AcoesEquipe obj = new gestaoindicadores.controlers.AcoesEquipe(pl);
+            obj.setIdfuncoes(new gestaoindicadores.controlers.Funcoes(Integer.parseInt(this.idCategoria.getText())));
             
             sessao.save(obj);
                 
@@ -301,7 +304,7 @@ public void AlimentaTabela() {
             while (x.next()) {
                 
                 model.addRow(new Object[]{"", ""});
-                this.jTable.setValueAt(x.getInt("nome_usuario"), contador, 0);
+                this.jTable.setValueAt(x.getString("nome_usuario"), contador, 0);
                 this.jTable.setValueAt(x.getString("descricao_funcao"), contador, 1);
                 contador++;
             }

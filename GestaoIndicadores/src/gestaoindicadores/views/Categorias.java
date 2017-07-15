@@ -102,6 +102,11 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
                 formFocusGained(evt);
             }
         });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -246,6 +251,11 @@ public class Categorias extends javax.swing.JInternalFrame implements TelaVIEW {
         // TODO add your handling code here:
         this.AlimentaTabela();
     }//GEN-LAST:event_formFocusGained
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        // TODO add your handling code here:
+        this.AlimentaTabela();
+    }//GEN-LAST:event_formMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
