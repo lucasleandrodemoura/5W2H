@@ -257,7 +257,7 @@ public class Stakeholders extends javax.swing.JInternalFrame implements TelaVIEW
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         // TODO add your handling code here:
-        this.AlimentaTabela();
+
     }//GEN-LAST:event_formMouseEntered
 
 
